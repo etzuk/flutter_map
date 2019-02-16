@@ -102,6 +102,14 @@ class FlutterMapState extends MapGestureMixin {
     if (options is OverlayImageLayerOptions) {
       return new OverlayImageLayer(options, mapState, _merge(options));
     }
+    if (options is MarkerClusterLayerOptions) {
+      return options.cluster.options.isClustering
+          ? new MarkerClusterLayer(options, mapState, _merge(options))
+          : new MarkerLayer(
+              new MarkerLayerOptions(markers: options.cluster.markers),
+              mapState,
+              _merge(options));
+    }
     for (var plugin in plugins) {
       if (plugin.supportsLayer(options)) {
         return plugin.createLayer(options, mapState, _merge(options));

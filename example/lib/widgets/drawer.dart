@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../pages/marker_cluster.dart';
 import '../pages/animated_map_controller.dart';
 import '../pages/esri.dart';
 import '../pages/home.dart';
@@ -70,6 +71,13 @@ Drawer buildDrawer(BuildContext context, String currentRoute) {
           selected: currentRoute == MarkerAnchorPage.route,
           onTap: () {
             Navigator.pushReplacementNamed(context, MarkerAnchorPage.route);
+          },
+        ),
+        new ListTile(
+          title: const Text('Marker Cluster'),
+          selected: currentRoute == MarkerClusterPage.route,
+          onTap: () {
+            Navigator.pushReplacementNamed(context, MarkerClusterPage.route);
           },
         ),
         new ListTile(

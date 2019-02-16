@@ -9,6 +9,12 @@ class LatLngBounds {
     extend(corner2);
   }
 
+  LatLngBounds.fromList(List<LatLng> points) {
+    if (points.length > 1) {
+      points.forEach((point) => this.extend(point));
+    }
+  }
+
   void extend(LatLng latlng) {
     if (latlng == null) {
       return;
@@ -41,6 +47,8 @@ class LatLngBounds {
   LatLng get northEast => ne;
   LatLng get northWest => new LatLng(north, west);
   LatLng get southEast => new LatLng(south, east);
+  LatLng get center => LatLng(sw.latitude + ((ne.latitude - sw.latitude) / 2),
+      southWest.longitude + ((ne.longitude - sw.longitude) / 2));
 
   bool get isValid {
     return sw != null && ne != null;

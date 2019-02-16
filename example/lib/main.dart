@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_map_example/pages/marker_cluster.dart';
 import './pages/moving_markers.dart';
 import './pages/esri.dart';
 import './pages/home.dart';
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
         AnimatedMapControllerPage.route: (context) =>
             new AnimatedMapControllerPage(),
         MarkerAnchorPage.route: (context) => new MarkerAnchorPage(),
+        MarkerClusterPage.route: (context) => new MarkerClusterPage(),
         PluginPage.route: (context) => new PluginPage(),
         OfflineMapPage.route: (context) => new OfflineMapPage(),
         OnTapPage.route: (context) => new OnTapPage(),
