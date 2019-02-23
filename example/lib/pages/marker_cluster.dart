@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_map/plugin_api.dart';
 import 'package:latlong/latlong.dart';
 
 import '../widgets/drawer.dart';
@@ -46,7 +47,7 @@ class MarkerClusterPageState extends State<MarkerClusterPage> {
       ),
     ];
 
-    var markerCluster = MarkerCluster(markers, ClusterOptions(isClustering: showCluster),
+    var markerCluster = MarkerCluster(markers, ClusterZoomOptions(),
         style:
         new MarkerClusterStyle(Colors.amber, Colors.black));
 
@@ -88,5 +89,12 @@ class MarkerClusterPageState extends State<MarkerClusterPage> {
             ],
           ),
         ));
+  }
+}
+
+class ClusterZoomOptions extends ClusterOptions {
+  @override
+  bool shouldCluster(MarkerClusterLayerOptions options, MapState mapState) {
+    return mapState.zoom < 4;
   }
 }

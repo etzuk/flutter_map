@@ -32,13 +32,11 @@ class MarkerCluster {
 class ClusterOptions {
   var isClustering;
 
+  bool shouldCluster(MarkerClusterLayerOptions options, MapState mapState) {
+    return isClustering;
+  }
+
   ClusterOptions({this.isClustering = true});
-}
-
-class ClusterIntersectOptions extends ClusterOptions {
-
-
-
 }
 
 class MarkerClusterLayer extends StatelessWidget {
