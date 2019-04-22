@@ -1,13 +1,31 @@
 import 'dart:async';
 
 import 'package:flutter/services.dart';
+import 'package:flutter_here_maps/gen/map_objects.pb.dart';
 
 class FlutterHereMaps {
-  static const MethodChannel _channel =
-      const MethodChannel('flutter_here_maps');
+  static const MethodChannel _mapChannel =
+      MethodChannel('flutter_here_maps_map');
 
-  static Future<String> get platformVersion async {
-    final String version = await _channel.invokeMethod('getPlatformVersion');
-    return version;
+  FlutterHereMaps() {
+    _mapCenter = MapCenter()
+      ..zoomLevel = (FloatValue()..value = 17.0)
+      ..orientation = (FloatValue()..value = 0.0)
+      ..tilt = (FloatValue()..value = 0.0);
+  }
+
+  MapCenter _mapCenter;
+  MapCenter get center => _mapCenter;
+
+  Future<void> setCenter(MapCenter mapCenter) async {
+    _mapCenter.mergeFromMessage(mapCenter);
+    print(_mapCenter.toDebugString());
+    return await _mapChannel.invokeMethod(
+        'setCenter', _mapCenter.writeToBuffer());
+  }
+
+  Future<void> setConfiguration(Configuration configuration) async {
+    return await _mapChannel.invokeMethod(
+        'setConfiguration', configuration.writeToBuffer());
   }
 }

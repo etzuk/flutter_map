@@ -1,56 +1,42 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
+import 'package:flutter_here_maps_example/pages/current_location_tracker.dart';
+import 'package:flutter_here_maps_example/pages/show_map.dart';
+import 'package:flutter_here_maps_example/pages/map_center.dart';
 
-import 'package:flutter/services.dart';
-import 'package:flutter_here_maps/flutter_here_maps.dart';
 
 void main() => runApp(MyApp());
 
-class MyApp extends StatefulWidget {
-  @override
-  _MyAppState createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
-
-  @override
-  void initState() {
-    super.initState();
-    initPlatformState();
-  }
-
-  // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initPlatformState() async {
-    String platformVersion;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    try {
-      platformVersion = await FlutterHereMaps.platformVersion;
-    } on PlatformException {
-      platformVersion = 'Failed to get platform version.';
-    }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
-
-    setState(() {
-      _platformVersion = platformVersion;
-    });
-  }
-
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Plugin example app'),
-        ),
-        body: Center(
-          child: Text('Running on: $_platformVersion\n'),
-        ),
+    return new MaterialApp(
+      title: 'HereMaps Example',
+      theme: new ThemeData(
+        primarySwatch: mapBoxBlue,
       ),
+      home: new ShowMapPage(),
+      routes: <String, WidgetBuilder>{
+        ShowMapPage.route: (context) => new ShowMapPage(),
+        MapCenterPage.route: (context) => new MapCenterPage(),
+        CurrentLocationTrackerPage.route: (context) => new CurrentLocationTrackerPage()
+      },
     );
   }
 }
+
+const int _bluePrimary = 0xFF395afa;
+const MaterialColor mapBoxBlue = const MaterialColor(
+  _bluePrimary,
+  const <int, Color>{
+    50: const Color(0xFFE7EBFE),
+    100: const Color(0xFFC4CEFE),
+    200: const Color(0xFF9CADFD),
+    300: const Color(0xFF748CFC),
+    400: const Color(0xFF5773FB),
+    500: const Color(_bluePrimary),
+    600: const Color(0xFF3352F9),
+    700: const Color(0xFF2C48F9),
+    800: const Color(0xFF243FF8),
+    900: const Color(0xFF172EF6),
+  },
+);

@@ -6,9 +6,7 @@ public class SwiftFlutterHereMapsPlugin: NSObject, FlutterPlugin {
     let channel = FlutterMethodChannel(name: "flutter_here_maps", binaryMessenger: registrar.messenger())
     let instance = SwiftFlutterHereMapsPlugin()
     registrar.addMethodCallDelegate(instance, channel: channel)
-  }
-
-  public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-    result("iOS " + UIDevice.current.systemVersion)
+    let native = MapViewFactory(with: registrar)
+    registrar.register(native, withId: "MapView")
   }
 }
